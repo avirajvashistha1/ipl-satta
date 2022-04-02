@@ -22,6 +22,11 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
+    @GetMapping("/greetplayer")
+    public String ackPlayer(){
+        return "Hello Player !!";
+    }
+
     @GetMapping("/players")
     public List<Player> getPlayers(){
         return playerService.getAllPlayers();
