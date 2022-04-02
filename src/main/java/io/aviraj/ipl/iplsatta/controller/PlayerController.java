@@ -5,8 +5,8 @@ import io.aviraj.ipl.iplsatta.domain.Player;
 import io.aviraj.ipl.iplsatta.domain.PlayerBean;
 import io.aviraj.ipl.iplsatta.services.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.core.ControllerEntityLinksFactoryBean;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +15,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class PlayerController {
 
     @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
     private PlayerService playerService;
 
     @GetMapping("/greetplayer")
-    public String ackPlayer(){
-        return "Hello Player !!";
+    public String greetPlayer(@RequestHeader(name="Accept-Language", required = false) Locale locale){
+        return messageSource.getMessage("good.morning.message", null, locale);
     }
 
     @GetMapping("/players")
